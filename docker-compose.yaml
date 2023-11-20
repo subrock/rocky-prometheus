@@ -1,0 +1,39 @@
+version: "3"
+services:
+  os:
+    tty: true
+    container_name: PROMETHEUS
+    hostname: PROMETHEUS
+    build:
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+      - "9115:9115"
+    volumes:
+      - ./configs:/var/node/
+    command: "/bin/bash"
+    networks:
+      - prometheus-network
+
+  grafana:
+    tty: true
+    container_name: GRAFANA
+    hostname: GRAFANA
+    image: grafana/grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    command: "/bin/bash"
+    networks:
+      - prometheus-network
+    environment:
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+
+volumes:
+  configs:
+
+networks:
+  prometheus-network:
