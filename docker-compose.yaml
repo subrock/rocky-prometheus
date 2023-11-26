@@ -1,6 +1,6 @@
 version: "3"
 services:
-  os:
+  prometheus:
     tty: true
     container_name: PROMETHEUS
     hostname: PROMETHEUS
@@ -20,20 +20,25 @@ services:
     tty: true
     container_name: GRAFANA
     hostname: GRAFANA
-    image: grafana/grafana
+    build:
+      dockerfile: Dockerfile.graf
     restart: unless-stopped
     ports:
-      - "3000:3000"
-    command: "/bin/bash"
+      - "9091:3000"
+    command: bash -c "while true; do sleep 10; done"
+    volumes:
+     - ./graf:/usr/share/qe/
     networks:
       - prometheus-network
     environment:
       - GF_AUTH_DISABLE_LOGIN_FORM=true
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-polystat-panel
 
 volumes:
   configs:
+  db:
 
 networks:
   prometheus-network:
