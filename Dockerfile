@@ -20,6 +20,8 @@ COPY bbe.tgz /tmp/
 RUN tar xfz /tmp/bbe.tgz -C /opt/
 RUN ln -s /opt/blackbox_exporter-0.18.0.linux-amd64/ /opt/blackbox
 
+COPY grafana.ini /etc/grafana/
+COPY favicon.ico /etc/grafana/
 WORKDIR /opt/prometheus
 
 # Expose port so its available in desktop.
