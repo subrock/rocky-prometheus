@@ -21,9 +21,13 @@ docker exec -it PROMETHEUS bash
 ```
 
 ## Node_Exporter
-You can launch node_exporter agent on the PROMETHEUS node for testing and metrics. 
+Node Exporter is used for linux machines. You can launch node_exporter agent on the PROMETHEUS node for testing and metrics. 
 ```
 docker exec -it PROMETHEUS /start_node.sh
+```
+Alternativly you can run it in the background
+```
+docker exec -it PROMETHEUS '/start_node.sh &'
 ```
 
 ## Prometheus Reload
