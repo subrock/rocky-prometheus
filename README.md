@@ -4,10 +4,10 @@ Prometheus on top of Rocky with Grafana
 ## Run
 ```
 docker network create --driver bridge prometheus-network
-docker run -d --name PROMETHEUS --hostname PROMETHEUS -p 9090:9090 --network prometheus-network -t rocky-prometheus
-docker run -d --name GRAFANA --hostname GRAFANA -p 9091:3000 --network prometheus-network -t rocky-grafana
+docker run -d --name PROMETHEUS --hostname PROMETHEUS -p 9090:9090 --network prometheus-network -t subrock/rocky-prometheus
+docker run -d --name GRAFANA --hostname GRAFANA -p 9091:3000 --network prometheus-network -t subrock/rocky-grafana
 ```
-
+docker system prune is your best friend.
 ## Compose
 Using the files from this repo, you can build and launch using compose. Create a directory and place Dockerfile, docker-compose.yaml and startup.sh in a directory.
 ```
