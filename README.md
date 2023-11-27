@@ -42,7 +42,10 @@ exit
 ```
 
 ## Prometheus Reload
+This works, but can take time for it to complete polling. Restarting works too.
 ```
 curl -s -XPOST localhost:9090/-/reload
+or
+docker restart GRAFANA
 ```
 
