@@ -28,6 +28,6 @@ docker exec -it PROMETHEUS /start_node.sh
 
 ## Prometheus Reload
 ```
-docker exec -it PROMETHEUS /start_node.sh
+curl -s -XPOST localhost:9090/-/reload
 ```
 
