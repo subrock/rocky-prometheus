@@ -20,11 +20,14 @@ docker compose up -d
 docker exec -it PROMETHEUS bash
 docker exec -it GRAFANA bash
 ```
+### Prometheus 
 http://localhost:9090
-
+### Grafana (Start Here) 
 http://localhost:9091
-
-http://localhost:9100
+### Node_Exporter (Linux) 
+http://<Client Ip>:9100
+### Windows_Exporter (Windows) 
+http://<Client Ip>:8350
 
 ## Node_Exporter
 Node Exporter is used for linux machines. You can launch node_exporter agent on the PROMETHEUS node for testing and metrics. 
