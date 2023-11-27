@@ -1,2 +1,33 @@
 # rocky-prometheus
 Prometheus on top of Rocky with Grafana
+
+## Run
+```
+docker network create --driver bridge prometheus-network
+docker run -d --name PROMETHEUS --hostname PROMETHEUS -p 9090:9090 --network prometheus-network -t rocky-prometheus
+docker run -d --name GRAFANA --hostname GRAFANA -p 9091:3000 --network prometheus-network -t rocky-grafana
+```
+
+## Compose
+Using the files from this repo, you can build and launch using compose. Create a directory and place Dockerfile, docker-compose.yaml and startup.sh in a directory.
+```
+docker compose build
+docker compose up
+docker compose up -d
+```
+## Access
+```
+docker exec -it PROMETHEUS bash
+```
+
+## Node_Exporter
+You can launch node_exporter agent on the PROMETHEUS node for testing and metrics. 
+```
+docker exec -it PROMETHEUS /start_node.sh
+```
+
+## Prometheus Reload
+```
+docker exec -it PROMETHEUS /start_node.sh
+```
+
