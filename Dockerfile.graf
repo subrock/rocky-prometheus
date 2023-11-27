@@ -6,18 +6,23 @@ LABEL maintainer="Karl Schroeder <karl@subrock.com>"
 WORKDIR /tmp/
 
 RUN yum install -y git nodejs npm net-tools iputils which procps chkconfig openssl-devel gcc glibc glibc-common wget unzip gd gd-devel perl autoconf gettext automake && yum clean all -y
-COPY grafana.repo /etc/yum.repos.d/grafana.repo
+COPY payload/grafana.repo /etc/yum.repos.d/grafana.repo
 RUN wget -q -O gpg.key https://rpm.grafana.com/gpg.key && rpm --import gpg.key
 RUN yum update -y
 RUN yum install grafana-enterprise -y
-COPY pl/grafana.ini /etc/grafana/
-COPY pl/grafana.db /usr/share/grafana/data/
-COPY pl/start_graf.sh /
-COPY favicon.ico /usr/share/grafana/public/img/fav32.png
+COPY payload/grafana.ini /etc/grafana/
+COPY payload/grafana.db /usr/share/grafana/data/
+COPY payload/start_graf.sh /
+COPY payload/favicon.ico /usr/share/grafana/public/img/fav32.png
+COPY payload/.vimrc /root/
+
 WORKDIR /usr/share/grafana
 
 # Expose port so its available in desktop.
 EXPOSE 9091
+
+RUN echo -e "GRAFANA has been started."
+	
 
 #CMD ["/bin/bash"]
 ENTRYPOINT /start_graf.sh && /bin/bash

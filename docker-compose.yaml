@@ -5,10 +5,12 @@ services:
     container_name: PROMETHEUS
     hostname: PROMETHEUS
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prom
     restart: unless-stopped
     ports:
       - "9090:9090"
+      - "9092:9092"
+      - "9100:9100"
       - "9115:9115"
     volumes:
       - ./configs:/var/node/
@@ -25,9 +27,6 @@ services:
     restart: unless-stopped
     ports:
       - "9091:3000"
-    command: bash -c "while true; do sleep 10; done"
-    volumes:
-     - ./graf:/usr/share/qe/
     networks:
       - prometheus-network
     environment:
@@ -38,7 +37,6 @@ services:
 
 volumes:
   configs:
-  db:
 
 networks:
   prometheus-network:
