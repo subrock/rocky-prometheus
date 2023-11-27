@@ -27,7 +27,7 @@ docker exec -it PROMETHEUS /start_node.sh
 ```
 Alternativly you can run it in the background
 ```
-docker exec -it PROMETHEUS '/start_node.sh &'
+working on it
 ```
 
 ## Prometheus Reload
