@@ -1,5 +1,5 @@
 # rocky-prometheus
-Prometheus on top of Rocky with Grafana
+Prometheus on top of Rocky with Grafana. Both Prometheus and Grafana docker images ran fine. I was able to use the base images directly with the post deploy steps. But I wanted to experiment with running on top of RHEL or Rocky. I also wanted to a certain level of customization. For example to make dashboards and alerts persist without the need of a volume. 
 
 ## Run
 ```
