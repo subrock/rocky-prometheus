@@ -13,6 +13,7 @@ RUN yum install grafana-enterprise -y
 COPY payload/grafana.ini /etc/grafana/
 COPY payload/grafana.db /usr/share/grafana/data/
 COPY payload/start_graf.sh /
+COPY payload/start_node.sh /
 COPY payload/favicon.ico /usr/share/grafana/public/img/fav32.png
 COPY payload/.vimrc /root/
 

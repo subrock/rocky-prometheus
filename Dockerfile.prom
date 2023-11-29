@@ -3,7 +3,7 @@ FROM rockylinux:9.2
 LABEL maintainer="Karl Schroeder <karl@subrock.com>"
 
 # Pre-reqs
-RUN yum install -y git vim nodejs npm net-tools iputils which procps chkconfig openssl-devel gcc glibc glibc-common wget unzip gd gd-devel perl autoconf gettext automake && yum clean all -y
+RUN yum install -y vim nodejs npm net-tools iputils which procps chkconfig openssl-devel gcc glibc glibc-common wget unzip gd gd-devel perl autoconf gettext automake && yum clean all -y
 
 # Install Jmeter
 WORKDIR /tmp/
@@ -14,14 +14,14 @@ RUN ln -s /opt/prometheus-2.48.0.linux-amd64/ /opt/prometheus
 COPY payload/prometheus.yml /opt/prometheus/
 RUN mkdir -p /var/node
 COPY payload/start_node.sh /
-
+WORKDIR /var/node
+COPY payload/custom_config.tgz /tmp/
+RUN tar xfz /tmp/custom_config.tgz 
 COPY payload/start_all.sh /
 COPY payload/bbe.tgz /tmp/
 RUN tar xfz /tmp/bbe.tgz -C /opt/
 RUN ln -s /opt/blackbox_exporter-0.18.0.linux-amd64/ /opt/blackbox
 COPY payload/.vimrc /root/
-
-WORKDIR /var/node
 
 RUN echo -e "PROFANA has started."
 
