@@ -9,7 +9,7 @@ Only files that are persisted are:
 ## Run
 ```
 docker network create --driver bridge prometheus-network
-docker run -d --name PROMETHEUS --hostname PROMETHEUS -p 9090:9090 --network prometheus-network -t subrock/rocky-prometheus:2
+docker run -d --name PROMETHEUS --hostname PROMETHEUS -p 9090:9090 --network prometheus-network -t subrock/rocky-prometheus
 docker run -d --name GRAFANA --hostname GRAFANA -p 9091:3000 --network prometheus-network -t subrock/rocky-grafana
 ```
 'docker system prune' is your best friend.
