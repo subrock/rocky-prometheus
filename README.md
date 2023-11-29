@@ -38,6 +38,7 @@ http://<Client Ip>:8350
 Node Exporter is used for linux machines. You can launch node_exporter agent on the PROMETHEUS node for testing and metrics. 
 ```
 docker exec -it PROMETHEUS /start_node.sh
+docker exec -it GRAFANA /start_node.sh
 ```
 Alternativly you can run it in the background
 ```
