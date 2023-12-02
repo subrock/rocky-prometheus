@@ -70,11 +70,14 @@ docker run -d --name INFLUXDB --hostname INFLUXDB -p 8086:8086 -e DOCKER_INFLUXD
 ```
 ```
 docker exec -it INFLUXDB influx -execute 'create database jmeter'
-docker exec -it INFLUXDB /start_node.sh
 ```
 ```
 docker run --name CONTROLLER --hostname CONTROLLER --network prometheus-network -d -t subrock/rocky-jmeter:controller
 docker run --name WORKER-1 --hostname WORKER-1 --network prometheus-network -d -t subrock/rocky-jmeter:worker
+```
+Optionally, start Node Exporter on INFLUXDB. 
+```
+docker exec -it INFLUXDB /start_node.sh
 ```
 Wait a good 2 minutes for Exporters to sync. Then run tests using Jmeter GUI or distributed cluster. 
 ```
