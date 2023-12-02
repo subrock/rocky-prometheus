@@ -43,6 +43,7 @@ Node Exporter is used for linux machines. You can launch node_exporter agent on 
 ```
 docker exec -it PROMETHEUS /start_node.sh
 docker exec -it GRAFANA /start_node.sh
+docker exec -it INFLUXDB /start_node.sh
 ```
 Alternativly you can run it in the background
 ```
@@ -63,9 +64,9 @@ Now we have PROMETHEUS for monitoring, GRAFANA for vistualizations and INFLUXDB 
 
 ```
 docker network create --driver bridge prometheus-network
-docker run -d --name PROMETHEUS --hostname PROMETHEUS -p 9090:9090 --network prometheus-network -t localhost:5000/rocky-prometheus
-docker run -d --name GRAFANA --hostname GRAFANA -p 9091:3000 --network prometheus-network -t localhost:5000/rocky-grafana
-docker run -d --name INFLUXDB --hostname INFLUXDB -p 8086:8086 -e DOCKER_INFLUXDB_INIT_MODE=setup -e DOCKER_INFLUXDB_INIT_USERNAME=admin -e DOCKER_INFLUXDB_INIT_PASSWORD=admin --network prometheus-network -t localhost:5000/rocky-influxdb
+docker run -d --name PROMETHEUS --hostname PROMETHEUS -p 9090:9090 --network prometheus-network -t subrock/rocky-prometheus
+docker run -d --name GRAFANA --hostname GRAFANA -p 9091:3000 --network prometheus-network -t subrock/rocky-grafana
+docker run -d --name INFLUXDB --hostname INFLUXDB -p 8086:8086 -e DOCKER_INFLUXDB_INIT_MODE=setup -e DOCKER_INFLUXDB_INIT_USERNAME=admin -e DOCKER_INFLUXDB_INIT_PASSWORD=admin --network prometheus-network -t subrock/rocky-influxdb
 ```
 ```
 docker exec -it INFLUXDB influx -execute 'create database jmeter'
@@ -74,7 +75,7 @@ docker exec -it INFLUXDB influx -execute 'create database jmeter'
 docker run --name CONTROLLER --hostname CONTROLLER --network prometheus-network -d -t subrock/rocky-jmeter:controller
 docker run --name WORKER-1 --hostname WORKER-1 --network prometheus-network -d -t subrock/rocky-jmeter:worker
 ```
-Now run tests using Jmeter GUI or distributed cluster. 
+Wait a good 2 minutes for Exporters to sync. Then run tests using Jmeter GUI or distributed cluster. 
 ```
 docker exec -it CONTROLLER /usr/local/bin/rocky-jmeter-run install_test_script.jmx
 ```
