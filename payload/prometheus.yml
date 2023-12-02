@@ -10,26 +10,19 @@ alerting:
 rule_files:
 scrape_configs:
 
-  - job_name: 'Package Test Lab'
-    static_configs:
-      - targets: ['192.168.39.100:9182']
-      - targets: ['192.168.39.140:9182']
-      - targets: ['192.168.39.140:9100']
-      - targets: ['192.168.39.162:9182']
+  - job_name: 'System'
+    file_sd_configs:
+      - files:
+        - /var/node/custom_config/System/*.json
 
-  - job_name: 'PROMETHEUS_HOST'
-    static_configs:
-      - targets: ['localhost:9100']
-
-  - job_name: 'SelectSurvey.NET'
+  - job_name: 'BLACKBOX_EXPORTER (Websites)'
     metrics_path: /probe
     params:
         module: [http_2xx]
     static_configs:
         - targets:
             - https://www.providence.org
-            - https://www.google.com
-            - http://subrock.net
+            - https://appsor.providence.org
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
