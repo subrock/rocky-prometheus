@@ -9,9 +9,9 @@ Only files that are persisted are:
 ## Run
 ```
 docker network create --driver bridge prometheus-network
-docker run -d --name PROMETHEUS --hostname PROMETHEUS -p 9090:9090 --network prometheus-network -t localhost:5000/rocky-prometheus
-docker run -d --name GRAFANA --hostname GRAFANA -p 9091:3000 --network prometheus-network -t localhost:5000/rocky-grafana
-docker run -d --name INFLUXDB --hostname INFLUXDB -p 8086:8086 -e DOCKER_INFLUXDB_INIT_MODE=setup -e DOCKER_INFLUXDB_INIT_USERNAME=admin -e DOCKER_INFLUXDB_INIT_PASSWORD=admin --network prometheus-network -t localhost:5000/rocky-influxdb
+docker run -d --name PROMETHEUS --hostname PROMETHEUS -p 9090:9090 --network prometheus-network -t subrock/rocky-prometheus
+docker run -d --name GRAFANA --hostname GRAFANA -p 9091:3000 --network prometheus-network -t subrock/rocky-grafana
+docker run -d --name INFLUXDB --hostname INFLUXDB -p 8086:8086 -e DOCKER_INFLUXDB_INIT_MODE=setup -e DOCKER_INFLUXDB_INIT_USERNAME=admin -e DOCKER_INFLUXDB_INIT_PASSWORD=admin --network prometheus-network -t subrock/rocky-influxdb
 ```
 'docker system prune' is your best friend.
 ## Compose
