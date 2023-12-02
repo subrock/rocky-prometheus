@@ -59,27 +59,3 @@ curl -s -XPOST localhost:9090/-/reload
 or
 docker restart PROMETHEUS
 ```
-## Put it all together
-Now we have PROMETHEUS for monitoring, GRAFANA for vistualizations and INFLUXDB for Integration with other apps like Jmeter. 
-
-```
-docker network create --driver bridge prometheus-network
-docker run -d --name PROMETHEUS --hostname PROMETHEUS -p 9090:9090 --network prometheus-network -t subrock/rocky-prometheus
-docker run -d --name GRAFANA --hostname GRAFANA -p 9091:3000 --network prometheus-network -t subrock/rocky-grafana
-docker run -d --name INFLUXDB --hostname INFLUXDB -p 8086:8086 -e DOCKER_INFLUXDB_INIT_MODE=setup -e DOCKER_INFLUXDB_INIT_USERNAME=admin -e DOCKER_INFLUXDB_INIT_PASSWORD=admin --network prometheus-network -t subrock/rocky-influxdb
-```
-```
-docker exec -it INFLUXDB influx -execute 'create database jmeter'
-```
-```
-docker run --name CONTROLLER --hostname CONTROLLER --network prometheus-network -d -t subrock/rocky-jmeter:controller
-docker run --name WORKER-1 --hostname WORKER-1 --network prometheus-network -d -t subrock/rocky-jmeter:worker
-```
-Optionally, start Node Exporter on INFLUXDB. 
-```
-docker exec -it INFLUXDB /start_node.sh
-```
-Wait a good 2 minutes for Exporters to sync. Then run tests using Jmeter GUI or distributed cluster. 
-```
-docker exec -it CONTROLLER /usr/local/bin/rocky-jmeter-run install_test_script.jmx
-```
