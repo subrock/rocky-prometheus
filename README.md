@@ -70,6 +70,7 @@ docker run -d --name INFLUXDB --hostname INFLUXDB -p 8086:8086 -e DOCKER_INFLUXD
 ```
 ```
 docker exec -it INFLUXDB influx -execute 'create database jmeter'
+docker exec -it INFLUXDB /start_node.sh
 ```
 ```
 docker run --name CONTROLLER --hostname CONTROLLER --network prometheus-network -d -t subrock/rocky-jmeter:controller
